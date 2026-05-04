@@ -80,6 +80,8 @@ ALCIE introduces:
 
 ## 🏗️ System Architecture
 
+```
+
 User Input
 ↓
 Preprocessing Layer
@@ -98,6 +100,7 @@ Cache Layer
 ↓
 Final Output
 
+```
 
 ---
 
@@ -126,6 +129,23 @@ Final Output
 
 ---
 
+## 📂 Project Structure
+
+```
+
+ALCIE/
+│── frontend/        # UI Layer
+│── backend/         # API & Logic
+│── optimizer/       # Token Optimization Engine
+│── router/          # Model Routing Logic
+│── cache/           # Caching Layer
+│── analytics/       # Cost Monitoring
+│── utils/           # Helper Functions
+│── config/          # Configurations
+│── README.md
+
+````
+
 ---
 
 ## 🚀 Getting Started
@@ -141,21 +161,129 @@ Final Output
 ### 📥 Installation
 
 ```bash
+git clone https://github.com/your-username/ALCIE-Enterprise-LLM-Optimization.git
+cd ALCIE-Enterprise-LLM-Optimization
+````
 
 ---
 
-## 🚀 Getting Started
-
-### 🔧 Prerequisites
-
-- Node.js / Python  
-- API Keys (OpenAI, Gemini, etc.)  
-- Redis (for caching)  
-
----
-
-### 📥 Installation
+### 📦 Install Dependencies
 
 ```bash
-git clone https://github.com/Ranjeet7680/ALCIE-Enterprise-LLM-Optimization.git
+npm install
+# OR
+pip install -r requirements.txt
+```
 
+---
+
+### 🔑 Environment Setup
+
+Create `.env` file:
+
+```
+OPENAI_API_KEY=your_api_key
+GEMINI_API_KEY=your_api_key
+REDIS_URL=your_redis_url
+DB_URI=your_database_uri
+```
+
+---
+
+### ▶️ Run Application
+
+```bash
+npm run dev
+# OR
+python app.py
+```
+
+---
+
+## 📊 Example Workflow
+
+**Input:**
+
+> "Summarize this PDF document"
+
+**ALCIE Process:**
+
+* Detects task type → summarization
+* Chooses cost-effective model
+* Compresses input tokens
+* Checks cache
+* Sends optimized request
+* Returns fast & low-cost response
+
+---
+
+## 📈 Benefits
+
+* 🔻 Reduce LLM costs by **40–70%**
+* ⚡ Faster response time
+* 🧠 Smarter AI usage
+* 📊 Full cost transparency
+* 🔁 Efficient resource utilization
+
+---
+
+## 🔐 Security
+
+* 🔒 Encrypted API keys
+* 👥 Role-based access control
+* 🚦 Rate limiting
+* 📜 Audit logs
+
+---
+
+## 🔮 Future Enhancements
+
+* 🤖 Reinforcement Learning-based routing
+* 🧩 Multi-agent architecture
+* 🧠 Auto fine-tuning pipelines
+* ☁️ SaaS enterprise dashboard
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions!
+
+```bash
+1. Fork the repository
+2. Create a new branch
+3. Commit your changes
+4. Submit a Pull Request
+```
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+## 👨‍💻 Author
+
+**Ranjeet Kumar**
+AI Engineer | LLM Systems | Automation | Innovation
+
+---
+
+## ⭐ Support
+
+If you like this project:
+
+* ⭐ Star the repository
+* 🔁 Share with others
+* 💡 Suggest new features
+
+---
+
+<p align="center">
+  <b>🚀 Building the Future of Efficient AI Systems</b>
+</p>
+```
+
+---
