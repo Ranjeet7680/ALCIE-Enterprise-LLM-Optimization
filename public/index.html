@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALCIE — Autonomous LLM Cost Intelligence Engine</title>
+  <meta name="description" content="AI CFO for LLM usage — self-learning, predictive, multi-agent cost optimization." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ── App View: Login ── -->
+  <div id="app-login" class="app-view active login-view">
+    <div class="login-left">
+      <div class="login-content fade-in">
+        <div class="brand-icon" style="width: 54px; height: 54px; font-size: 28px; margin-bottom: 20px;">⚡</div>
+        <div style="font-size: 24px; font-weight: 700; color: #fff;">ALCIE</div>
+        <div class="login-tagline">Your AI CFO for<br>LLM Cost Optimization</div>
+      </div>
+    </div>
+    <div class="login-right fade-in" style="animation-delay: 0.2s;">
+      <div class="login-box">
+        <h2 style="font-size: 22px; color: #fff; margin-bottom: 8px;">Welcome back</h2>
+        <p style="font-size: 13px; color: var(--muted); margin-bottom: 24px;">Enter your details to access your dashboard.</p>
+        <div class="field-group">
+          <label>Email Address</label>
+          <input type="text" placeholder="name@company.com" />
+        </div>
+        <div class="field-group">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" />
+        </div>
+        <button class="btn-accent full-w ripple" id="btnLogin">Enter Dashboard →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── App View: Onboarding ── -->
+  <div id="app-onboarding" class="app-view onboard-view">
+    <div class="onboard-container">
+      <!-- Step 1 -->
+      <div class="ob-step active" id="obStep1">
+        <div class="ob-title">Connect Your Providers</div>
+        <p style="text-align: center; color: var(--muted); font-size: 13px; margin-bottom: 20px;">Link your API accounts so ALCIE can track and optimize usage.</p>
+        <div class="api-card">
+          <div style="display:flex; align-items:center; gap: 12px;">
+            <div class="brand-icon" style="width: 32px; height: 32px; background: #fff; color: #000; font-size: 16px;">O</div>
+            <div>
+              <div style="font-weight: 700; font-size: 14px;">OpenAI</div>
+              <div style="font-size: 11px; color: var(--green);">Connected</div>
+            </div>
+          </div>
+          <button class="btn-ghost" disabled>Connected</button>
+        </div>
+        <div class="api-card">
+          <div style="display:flex; align-items:center; gap: 12px;">
+            <div class="brand-icon" style="width: 32px; height: 32px; background: #D97757; font-size: 16px;">C</div>
+            <div>
+              <div style="font-weight: 700; font-size: 14px; color: var(--text);">Anthropic (Claude)</div>
+              <div class="connect-status" style="font-size: 11px; color: var(--muted);">Not Connected</div>
+            </div>
+          </div>
+          <button class="btn-ghost connect-btn">Connect</button>
+        </div>
+        <div class="api-card">
+          <div style="display:flex; align-items:center; gap: 12px;">
+            <div class="brand-icon" style="width: 32px; height: 32px; background: #4285F4; font-size: 16px;">G</div>
+            <div>
+              <div style="font-weight: 700; font-size: 14px; color: var(--text);">Google Gemini</div>
+              <div class="connect-status" style="font-size: 11px; color: var(--muted);">Not Connected</div>
+            </div>
+          </div>
+          <button class="btn-ghost connect-btn">Connect</button>
+        </div>
+        <div class="api-card">
+          <div style="display:flex; align-items:center; gap: 12px;">
+            <div class="brand-icon" style="width: 32px; height: 32px; background: #FF9900; font-size: 16px;">S</div>
+            <div>
+              <div style="font-weight: 700; font-size: 14px; color: var(--text);">Sarvam AI</div>
+              <div class="connect-status" style="font-size: 11px; color: var(--muted);">Not Connected</div>
+            </div>
+          </div>
+          <button class="btn-ghost connect-btn">Connect</button>
+        </div>
+        <div class="api-card">
+          <div style="display:flex; align-items:center; gap: 12px;">
+            <div class="brand-icon" style="width: 32px; height: 32px; background: #171717; color: #fff; font-size: 16px; border: 1px solid rgba(255,255,255,0.1);">P</div>
+            <div>
+              <div style="font-weight: 700; font-size: 14px; color: var(--text);">Perplexity</div>
+              <div class="connect-status" style="font-size: 11px; color: var(--muted);">Not Connected</div>
+            </div>
+          </div>
+          <button class="btn-ghost connect-btn">Connect</button>
+        </div>
+        <button class="btn-accent ripple" id="btnObNext1" style="margin-top: 10px;">Continue →</button>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="ob-step" id="obStep2">
+        <div class="ob-title">Set Monthly Budget</div>
+        <p style="text-align: center; color: var(--muted); font-size: 13px; margin-bottom: 20px;">We'll alert you and auto-route traffic to keep you under budget.</p>
+        <div style="text-align: center; font-size: 42px; font-weight: 800; font-family: 'JetBrains Mono', monospace; color: #fff; margin: 20px 0;" id="obBudgetDisplay">$20,000</div>
+        <input type="range" class="range-slider" min="1000" max="100000" step="1000" value="20000" id="obBudgetSlider" />
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border);">
+          <div>
+            <div style="font-weight: 600; font-size: 13px;">Auto-throttle at 90%</div>
+            <div style="font-size: 11px; color: var(--muted);">Switch all traffic to Gemini Flash when near limit</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <button class="btn-accent ripple" id="btnObNext2" style="margin-top: 20px;">Continue →</button>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="ob-step" id="obStep3">
+        <div class="ob-title">Optimization Preference</div>
+        <p style="text-align: center; color: var(--muted); font-size: 13px; margin-bottom: 20px;">How aggressive should ALCIE be?</p>
+        
+        <div class="api-card preference-card" style="cursor: pointer; border-color: var(--accent); background: rgba(123, 97, 255, 0.05);">
+          <div>
+            <div style="font-weight: 700; font-size: 14px; color: var(--accent);" class="pref-title">⚖️ Balanced Mode (Recommended)</div>
+            <div style="font-size: 11px; color: var(--muted); margin-top: 4px;">Save 20-30% with no noticeable quality drop</div>
+          </div>
+        </div>
+        <div class="api-card preference-card" style="cursor: pointer; opacity: 0.7;">
+          <div>
+            <div style="font-weight: 700; font-size: 14px; color: var(--text);" class="pref-title">💰 Maximum Savings</div>
+            <div style="font-size: 11px; color: var(--muted); margin-top: 4px;">Aggressively route to cheapest capable models</div>
+          </div>
+        </div>
+        <div class="api-card preference-card" style="cursor: pointer; opacity: 0.7;">
+          <div>
+            <div style="font-weight: 700; font-size: 14px; color: var(--text);" class="pref-title">🚀 Performance Priority</div>
+            <div style="font-size: 11px; color: var(--muted); margin-top: 4px;">Only optimize background tasks, keep GPT-4 for users</div>
+          </div>
+        </div>
+        
+        <button class="btn-accent ripple" id="btnObFinish" style="margin-top: 20px;">Finish Setup ⚡</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── App View: Dashboard ── -->
+  <div id="app-dashboard" class="app-view">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">⚡</div>
+      <div>
+        <div class="brand-name">ALCIE</div>
+        <div class="brand-sub">Enterprise LLM Optimization</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-item active" data-page="analytics">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-item" data-page="token-usage">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 6v6l4 2" />
+        </svg>
+        <span>Token Usage</span>
+      </a>
+      <a class="nav-item" data-page="cost">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="1" x2="12" y2="23" />
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+        </svg>
+        <span>Cost Analytics</span>
+      </a>
+      <a class="nav-item" data-page="agents">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+        </svg>
+        <span>Model Tuning</span>
+      </a>
+      <a class="nav-item" data-page="analytics-deep">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+        </svg>
+        <span>Deep Analytics</span>
+      </a>
+      <a class="nav-item" data-page="optimization">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span>Optimization Panel</span>
+      </a>
+      <a class="nav-item" data-page="logs">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+        </svg>
+        <span>API Logs</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-user" data-page="profile" style="cursor: pointer;">
+      <img src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed=ALCIE&backgroundColor=7c3aed,00d2ff" style="width:32px; height:32px; border-radius:50%; object-fit:cover; border: 1px solid var(--border);" alt="Avatar" id="sidebarAvatar">
+      <div class="user-info">
+        <div class="user-name">Admin User</div>
+        <div class="user-plan">Enterprise Plan</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <main class="main">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="topbar-nav">
+          <span class="tnav-item active" data-page="analytics">Dashboard</span>
+          <span class="tnav-item" data-page="token-usage">Token Usage</span>
+          <span class="tnav-item" data-page="cost">Cost Analytics</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="search-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input type="text" placeholder="Search resources..." />
+        </div>
+        <button class="icon-btn" title="Toggle Theme" id="btnTheme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 3a6.364 6.364 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </button>
+        <button class="icon-btn" title="Notifications">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+          <span class="notif-dot"></span>
+        </button>
+        <button class="icon-btn" title="Help" data-page="help">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+        </button>
+        <button class="icon-btn" title="Settings" data-page="settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
+        </button>
+        <img src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed=ALCIE&backgroundColor=7c3aed,00d2ff" style="width:32px; height:32px; border-radius:50%; object-fit:cover; border: 1px solid var(--border); cursor:pointer;" alt="Avatar" id="topbarAvatar" data-page="profile">
+      </div>
+    </header>
+
+    <div class="content">
+
+      <div id="page-analytics" class="page-section">
+      <!-- Page header -->
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Analytics &amp; Attribution</h1>
+          <p class="page-sub">Real-time model usage statistics and project-level cost breakdown</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn-ghost" id="btnSeed">🌱 Load Demo</button>
+          <button class="btn-accent" id="btnNewSession">+ New Session</button>
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="kpi-row fade-in" style="animation-delay: 0.1s">
+        <div class="kpi-card">
+          <div class="kpi-label">Monthly Burn Rate</div>
+          <div class="kpi-val kpi-counter" id="kpiBurnRate" data-val="8450">$0</div>
+          <div class="kpi-sub green">↓ 12% vs last month</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Avg Cost / Request</div>
+          <div class="kpi-val" id="kpiCostReq">$0.014</div>
+          <div class="kpi-sub accent">Gemini offset active</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Total Savings</div>
+          <div class="kpi-val green kpi-counter" id="kpiSavings" data-val="1240">$0</div>
+          <div class="kpi-sub">Via auto-routing</div>
+        </div>
+      </div>
+
+      <!-- Budget Alert -->
+      <div class="alert-banner fade-in" id="alertBanner" style="animation-delay: 0.2s">
+        <div class="alert-left">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+          <div>
+            <div class="alert-label">AI CFO ALERT</div>
+            <div class="alert-msg" id="alertMsg">⚡ You’re 88% budget used. Want me to optimize automatically?</div>
+          </div>
+        </div>
+        <button class="btn-alert" id="btnUpgrade">⚡ OPTIMIZE NOW</button>
+      </div>
+
+      <!-- Two-col: Donut + Project Expenditures -->
+      <div class="dash-row fade-in" style="animation-delay: 0.3s">
+
+        <!-- Model Distribution -->
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">Model Distribution</span>
+            <button class="icon-btn-sm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+              </svg>
+            </button>
+          </div>
+          <div class="donut-wrap">
+            <canvas id="chartDonut" width="180" height="180"></canvas>
+            <div class="donut-center">
+              <div class="donut-val" id="donutVal">4.2M</div>
+              <div class="donut-lbl">TOKENS</div>
+            </div>
+          </div>
+          <div class="model-legend" id="modelLegend">
+            <div class="legend-item"><span class="dot" style="background:#6382ff"></span><span
+                class="legend-name">GPT-4</span><span class="legend-pct">45%</span></div>
+            <div class="legend-item"><span class="dot" style="background:#06d6a0"></span><span
+                class="legend-name">Claude</span><span class="legend-pct">30%</span></div>
+            <div class="legend-item"><span class="dot" style="background:#a855f7"></span><span class="legend-name">Llama
+                3</span><span class="legend-pct">25%</span></div>
+          </div>
+        </div>
+
+        <!-- Insights & Project Expenditures -->
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">AI Insights & Expenditures</span>
+            <div class="toggle-group">
+              <button class="tgl active" id="tglWeekly">Weekly</button>
+              <button class="tgl" id="tglMonthly">Monthly</button>
+            </div>
+          </div>
+          
+          <div class="insight-card">
+            <div class="insight-icon">💡</div>
+            <div class="insight-body">
+              <div class="insight-title">Cost Anomaly Detected</div>
+              <div class="insight-desc">Claude usage ↑ 12% in "Legal Review Agent". Consider switching 30% of traffic to Gemini Flash to save $450/week.</div>
+              <div class="insight-action" id="btnAutoSwitch">Apply Recommendation →</div>
+            </div>
+          </div>
+
+          <div class="expenditure-list" id="expenditureList" style="margin-top: 20px;">
+            <div class="exp-row">
+              <div class="exp-name">Enterprise AI Chat</div>
+              <div class="exp-right">
+                <div class="exp-bar-track">
+                  <div class="exp-bar" style="width:84%;background:#6382ff"></div>
+                </div>
+                <div class="exp-amount">$8,450.20</div>
+              </div>
+            </div>
+            <div class="exp-row">
+              <div class="exp-name">Legal Review Agent</div>
+              <div class="exp-right">
+                <div class="exp-bar-track">
+                  <div class="exp-bar" style="width:62%;background:#06d6a0"></div>
+                </div>
+                <div class="exp-amount">$4,120.00</div>
+              </div>
+            </div>
+            <div class="exp-row">
+              <div class="exp-name">Content Engine V3</div>
+              <div class="exp-right">
+                <div class="exp-bar-track">
+                  <div class="exp-bar" style="width:45%;background:#a855f7"></div>
+                </div>
+                <div class="exp-amount">$2,940.15</div>
+              </div>
+            </div>
+            <div class="exp-row">
+              <div class="exp-name">Internal Search</div>
+              <div class="exp-right">
+                <div class="exp-bar-track">
+                  <div class="exp-bar" style="width:22%;background:#fbbf24"></div>
+                </div>
+                <div class="exp-amount">$1,080.00</div>
+              </div>
+            </div>
+          </div>
+          <div class="exp-footer">
+            <span class="exp-stat">📈 vs last month <strong style="color:#06d6a0">+12.4%</strong></span>
+            <span class="exp-stat">💡 Savings via optimization <strong style="color:#6382ff">$1,240</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Latest Key Usage Table -->
+      <div class="card fade-in" style="animation-delay: 0.4s">
+        <div class="card-head">
+          <span class="card-title">Latest Key Usage</span>
+          <div class="table-actions">
+            <div class="filter-select">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+              </svg>
+              <select id="statusFilter">
+                <option>All Status</option>
+                <option>Active</option>
+                <option>In Progress</option>
+                <option>Paused</option>
+                <option>Depleted</option>
+              </select>
+            </div>
+            <button class="btn-export" id="btnExport">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Export
+            </button>
+          </div>
+        </div>
+
+        <table class="usage-table">
+          <thead>
+            <tr>
+              <th>KEY ID</th>
+              <th>MODEL</th>
+              <th>TOKENS</th>
+              <th>COST</th>
+              <th>STATUS</th>
+              <th>LAST SYNC</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="usageTableBody">
+            <tr>
+              <td><a class="key-id">ak-prod-0294</a></td>
+              <td><span class="model-badge gpt4">GPT-4-TURBO</span></td>
+              <td class="mono">142,500</td>
+              <td class="mono">$1.42</td>
+              <td><span class="status-badge active">● Active</span></td>
+              <td class="mono muted">2m ago</td>
+              <td><button class="row-action">↗</button></td>
+            </tr>
+            <tr>
+              <td><a class="key-id">ak-test-1182</a></td>
+              <td><span class="model-badge claude">CLAUDE-3-OPUS</span></td>
+              <td class="mono">89,210</td>
+              <td class="mono">$1.34</td>
+              <td><span class="status-badge active">● Active</span></td>
+              <td class="mono muted">15m ago</td>
+              <td><button class="row-action">↗</button></td>
+            </tr>
+            <tr>
+              <td><a class="key-id">ak-dev-7742</a></td>
+              <td><span class="model-badge llama">LLAMA-3-70B</span></td>
+              <td class="mono">512,000</td>
+              <td class="mono">$0.00</td>
+              <td><span class="status-badge depleted">● Depleted</span></td>
+              <td class="mono muted">1h ago</td>
+              <td><button class="row-action">↗</button></td>
+            </tr>
+            <tr>
+              <td><a class="key-id">ak-prod-4410</a></td>
+              <td><span class="model-badge gpt35">GPT-3.5-INSTRUCT</span></td>
+              <td class="mono">1,200,450</td>
+              <td class="mono">$2.40</td>
+              <td><span class="status-badge active">● Active</span></td>
+              <td class="mono muted">4m ago</td>
+              <td><button class="row-action">↗</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="table-footer">
+          <span class="table-info" id="tableInfo">Showing 1–4 of 124 logs</span>
+          <div class="pagination">
+            <button class="page-btn" id="btnPrev">Previous</button>
+            <button class="page-btn active" id="btnNext">Next</button>
+          </div>
+        </div>
+      </div>
+      </div><!-- /page-analytics -->
+
+      <!-- Token Usage Section -->
+      <div id="page-token-usage" class="page-section hidden">
+        <div class="page-header" style="margin-bottom: 20px;">
+          <div><h1 class="page-title">Token Usage</h1><p class="page-sub">Granular token consumption per provider.</p></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="card-title">Token Consumption (30 Days)</span></div>
+          <div style="height: 300px; position: relative;">
+            <canvas id="tokenUsageChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cost Analytics Section -->
+      <div id="page-cost" class="page-section hidden">
+        <div class="page-header" style="margin-bottom: 20px;">
+          <div><h1 class="page-title">Cost Analytics</h1><p class="page-sub">Detailed breakdown of LLM expenses.</p></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="card-title">Daily Expenditure Breakdown</span></div>
+          <div style="height: 300px; position: relative;">
+            <canvas id="costAnalyticsChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- API Logs Section -->
+      <div id="page-logs" class="page-section hidden">
+        <div class="page-header" style="margin-bottom: 20px;">
+          <div><h1 class="page-title">API Logs</h1><p class="page-sub">Real-time tracing of all LLM requests.</p></div>
+        </div>
+        <div class="card">
+          <table class="usage-table">
+            <thead>
+              <tr>
+                <th>TIMESTAMP</th>
+                <th>ENDPOINT</th>
+                <th>TOKENS</th>
+                <th>LATENCY</th>
+                <th>STATUS</th>
+              </tr>
+            </thead>
+            <tbody id="apiLogsTable">
+              <tr>
+                <td class="mono muted">10:42:01 AM</td>
+                <td>/v1/chat/completions (GPT-4o)</td>
+                <td class="mono">2,145</td>
+                <td class="mono">842ms</td>
+                <td><span class="status-badge active">200 OK</span></td>
+              </tr>
+              <tr>
+                <td class="mono muted">10:41:15 AM</td>
+                <td>/v1/messages (Claude 3.5)</td>
+                <td class="mono">890</td>
+                <td class="mono">610ms</td>
+                <td><span class="status-badge active">200 OK</span></td>
+              </tr>
+              <tr>
+                <td class="mono muted">10:39:55 AM</td>
+                <td>/v1/chat/completions (Gemini)</td>
+                <td class="mono">15,420</td>
+                <td class="mono">1.2s</td>
+                <td><span class="status-badge active">200 OK</span></td>
+              </tr>
+              <tr>
+                <td class="mono muted">10:38:10 AM</td>
+                <td>/v1/chat/completions (GPT-4)</td>
+                <td class="mono">--</td>
+                <td class="mono">5002ms</td>
+                <td><span class="status-badge depleted">429 Rate Limit</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Profile Section -->
+      <div id="page-profile" class="page-section hidden">
+        <div class="page-header" style="margin-bottom: 20px;">
+          <div><h1 class="page-title">Admin Profile</h1><p class="page-sub">Manage your enterprise plan and team settings.</p></div>
+        </div>
+        <div class="card" style="display:flex; flex-direction:column; align-items:flex-start; gap: 20px;">
+          <div style="display:flex; align-items:center; gap:20px;">
+             <img src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed=ALCIE&backgroundColor=7c3aed,00d2ff" style="width:64px; height:64px; border-radius:16px; object-fit:cover; border: 1px solid var(--border);" alt="AI Avatar" id="profileAvatar">
+             <div>
+               <h2 style="color:var(--text); font-size:20px; font-weight:700;">Admin User</h2>
+               <p style="color:var(--muted); font-size:13px; margin-top:4px;">Enterprise Plan • admin@company.com</p>
+             </div>
+          </div>
+          <div style="display:flex; gap: 10px;">
+             <button class="btn-accent" id="btnGenAvatar">Generate AI Avatar</button>
+             <button class="btn-ghost">Edit Profile</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Help Section -->
+      <div id="page-help" class="page-section hidden">
+        <div class="page-header" style="margin-bottom: 20px;">
+          <div><h1 class="page-title">Help & Support</h1><p class="page-sub">Documentation and contact support.</p></div>
+        </div>
+        <div class="dash-row">
+          <div class="card">
+             <div class="card-head"><span class="card-title">Documentation</span></div>
+             <p style="color:var(--muted); font-size:13px; margin-bottom: 16px;">Read our guides on API integration and prompt optimization.</p>
+             <button class="btn-ghost">Read Docs ↗</button>
+          </div>
+          <div class="card">
+             <div class="card-head"><span class="card-title">Contact Support</span></div>
+             <p style="color:var(--muted); font-size:13px; margin-bottom: 16px;">Enterprise support is available 24/7.</p>
+             <button class="btn-accent">Open Ticket</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings Section -->
+      <div id="page-settings" class="page-section hidden">
+        <div class="page-header" style="margin-bottom: 20px;">
+          <div><h1 class="page-title">Application Settings</h1><p class="page-sub">Configure ALCIE platform preferences.</p></div>
+        </div>
+        <div class="dash-row" style="grid-template-columns: 1fr; gap: 15px;">
+          
+          <div class="card" style="display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div style="font-weight:600; font-size:14px; margin-bottom:4px; color:var(--text);">Workspace Name</div>
+              <div style="font-size:12px; color:var(--muted);">Rename your active project workspace.</div>
+            </div>
+            <div style="display:flex; gap: 8px;">
+              <input type="text" id="inputProjectName" value="ALCIE" style="background:var(--surface2); color:var(--text); border:1px solid var(--border); padding:6px 12px; border-radius:6px; width: 200px; outline:none;">
+              <button class="btn-ghost" id="btnRenameProject">Rename</button>
+            </div>
+          </div>
+
+          <div class="card" style="display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div style="font-weight:600; font-size:14px; margin-bottom:4px; color:var(--text);">Display Language</div>
+              <div style="font-size:12px; color:var(--muted);">Set your preferred UI language.</div>
+            </div>
+            <select style="background:var(--surface2); color:var(--text); border:1px solid var(--border); padding:6px 12px; border-radius:6px;">
+              <option>English (US)</option>
+              <option>Japanese (日本語)</option>
+              <option>Spanish (Español)</option>
+            </select>
+          </div>
+
+          <div class="card" style="display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div style="font-weight:600; font-size:14px; margin-bottom:4px; color:var(--text);">Time Zone</div>
+              <div style="font-size:12px; color:var(--muted);">Adjust timezone for analytics reporting.</div>
+            </div>
+            <select style="background:var(--surface2); color:var(--text); border:1px solid var(--border); padding:6px 12px; border-radius:6px;">
+              <option>UTC (Coordinated Universal Time)</option>
+              <option>EST (Eastern Standard Time)</option>
+              <option>PST (Pacific Standard Time)</option>
+              <option>JST (Japan Standard Time)</option>
+            </select>
+          </div>
+
+          <div class="card" style="display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div style="font-weight:600; font-size:14px; margin-bottom:4px; color:var(--text);">Weather Module Integration</div>
+              <div style="font-size:12px; color:var(--muted);">Show weather insights in dashboard headers.</div>
+            </div>
+            <button class="btn-ghost">Connect API</button>
+          </div>
+
+          <div class="card" style="display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div style="font-weight:600; font-size:14px; margin-bottom:4px; color:var(--text);">Legal & Agreements</div>
+              <div style="font-size:12px; color:var(--muted);">View your Enterprise Terms of Service and SLA.</div>
+            </div>
+            <button class="btn-ghost">View Agreement</button>
+          </div>
+
+          <div class="card" style="display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div style="font-weight:600; font-size:14px; margin-bottom:4px; color:var(--text);">About ALCIE</div>
+              <div style="font-size:12px; color:var(--muted);">Version 2.4.1 (Stable Build)</div>
+            </div>
+            <button class="btn-ghost">Check for Updates</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Analyzer + Agent Sections (hidden, accessible via nav) -->
+      <div id="page-agents" class="page-section hidden">
+        <div class="card">
+          <div class="card-head"><span class="card-title">🤖 Multi-Agent Pipeline</span><span
+              class="badge-live">Live</span></div>
+          <div class="agents-grid">
+            <div class="agent-card" id="agent-planner">
+              <div class="agent-icon">🧠</div>
+              <div class="agent-name">Planner</div>
+              <div class="agent-role">Intent classifier</div>
+              <div class="agent-status idle">Idle</div>
+            </div>
+            <div class="agent-arrow">→</div>
+            <div class="agent-card" id="agent-compression">
+              <div class="agent-icon">✂️</div>
+              <div class="agent-name">Compression</div>
+              <div class="agent-role">KG builder</div>
+              <div class="agent-status idle">Idle</div>
+            </div>
+            <div class="agent-arrow">→</div>
+            <div class="agent-card" id="agent-memory">
+              <div class="agent-icon">🧩</div>
+              <div class="agent-name">Memory</div>
+              <div class="agent-role">FAISS search</div>
+              <div class="agent-status idle">Idle</div>
+            </div>
+            <div class="agent-arrow">→</div>
+            <div class="agent-card" id="agent-cost">
+              <div class="agent-icon">💰</div>
+              <div class="agent-name">Cost</div>
+              <div class="agent-role">Budget enforcer</div>
+              <div class="agent-status idle">Idle</div>
+            </div>
+            <div class="agent-arrow">→</div>
+            <div class="agent-card" id="agent-router">
+              <div class="agent-icon">🎯</div>
+              <div class="agent-name">Router</div>
+              <div class="agent-role">Model selector</div>
+              <div class="agent-status idle">Idle</div>
+            </div>
+          </div>
+          <div class="agent-log" id="agentLog">
+            <div class="empty-state">Run a query to see agent activity</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Optimization Panel Section -->
+      <div id="page-optimization" class="page-section hidden">
+        <div class="page-header" style="margin-bottom: 20px;">
+          <div>
+            <h1 class="page-title">Optimization Control Center</h1>
+            <p class="page-sub">Configure auto-routing rules and simulate potential savings.</p>
+          </div>
+        </div>
+        <div class="dash-row">
+          <div class="card">
+            <div class="card-head"><span class="card-title">Auto-Routing Rules</span></div>
+            <div class="field-group" style="margin-bottom: 16px;">
+              <label>Simple Text Tasks (High Volume)</label>
+              <select><option>Route to Gemini Flash</option><option>Route to GPT-3.5</option></select>
+            </div>
+            <div class="field-group" style="margin-bottom: 16px;">
+              <label>Complex Logic Tasks (Low Volume)</label>
+              <select><option>Route to GPT-4o</option><option>Route to Claude 3 Opus</option></select>
+            </div>
+            <div class="field-group">
+              <label>Cost vs. Quality Threshold</label>
+              <input type="range" class="range-slider" min="1" max="100" value="70" />
+            </div>
+            <button class="btn-accent ripple full-w" style="margin-top: 24px;" id="btnSimulateOpt">Run Optimization Simulation ⚡</button>
+          </div>
+          <div class="card">
+            <div class="card-head"><span class="card-title">Simulation Output</span></div>
+            <div class="empty-state" id="optSimResult">
+              <div style="font-size: 32px; margin-bottom: 10px;">🧪</div>
+              Run a simulation to view projected savings across your infrastructure.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Deep Analytics Section -->
+      <div id="page-analytics-deep" class="page-section hidden">
+        <div class="page-header" style="margin-bottom: 20px;">
+          <div>
+            <h1 class="page-title">Deep Analytics</h1>
+            <p class="page-sub">Granular performance and cost metrics for advanced users.</p>
+          </div>
+        </div>
+        <div class="dash-row">
+          <div class="card">
+            <div class="card-head"><span class="card-title">Prompt Analysis</span></div>
+            <div class="expenditure-list">
+              <div class="exp-row">
+                <div class="exp-name">Average Tokens / Request</div>
+                <div class="exp-amount mono">1,420</div>
+              </div>
+              <div class="exp-row">
+                <div class="exp-name">Waste Detection (Redundant Context)</div>
+                <div class="exp-amount mono" style="color: var(--danger);">18%</div>
+              </div>
+              <div class="exp-row">
+                <div class="exp-name">Longest Prompt</div>
+                <div class="exp-amount mono">32,150 tokens</div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><span class="card-title">Model Efficiency</span></div>
+            <div style="height: 250px; position: relative;">
+              <canvas id="efficiencyChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+
+    <!-- Analyzer Floating Panel -->
+    <div class="fab-wrap">
+      <button class="fab" id="fabAnalyze" title="Open Query Analyzer">⚡</button>
+    </div>
+
+    <div class="analyzer-modal hidden" id="analyzerModal">
+      <div class="modal-backdrop" id="modalBackdrop"></div>
+      <div class="modal-panel">
+        <div class="modal-head">
+          <span>🧠 AI CFO Assistant</span>
+          <button class="modal-close" id="modalClose">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="ai-greeting" style="font-size: 12.5px; color: var(--muted); margin-bottom: 16px; border-left: 3px solid var(--accent); padding-left: 12px; background: rgba(123, 97, 255, 0.05); border-radius: 0 8px 8px 0; padding-top: 8px; padding-bottom: 8px;">
+            "Hello. I noticed a 12% spike in GPT-4 usage today. I can optimize your next queries to save up to <strong style="color: var(--green);">$1,200/mo</strong> while preserving quality."
+          </div>
+          <div class="field-group">
+            <label>Ask CFO / Simulate Query</label>
+            <textarea id="queryInput" rows="4"
+              placeholder="e.g. Optimize my current token usage across all agents…"></textarea>
+          </div>
+          <div class="field-row2">
+            <div class="field-group">
+              <label>Target Model</label>
+              <select id="modelSelect">
+                <option value="">Auto-Route (Recommended)</option>
+                <option value="gpt-4o">GPT-4o</option>
+                <option value="claude-3-opus">Claude 3 Opus</option>
+                <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+                <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label>Max Budget ($)</label>
+              <input type="number" id="budgetInput" value="10" min="0.1" step="0.5" />
+            </div>
+          </div>
+          <button class="btn-accent full-w" id="btnAnalyze">⚡ Optimize & Simulate</button>
+          <div id="analyzeResult" class="analyze-result hidden"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  </div> <!-- /app-dashboard -->
+
+  <!-- ── Notifications Center ── -->
+  <div class="notif-panel" id="notifPanel">
+    <div class="notif-header">Alert Center</div>
+    <div class="notif-list">
+      <div class="notif-item danger">
+        <div style="font-weight: 600; color: #fff;">Budget Warning</div>
+        <div style="color: var(--muted); margin-top: 2px;">You will exceed your budget in 4 days at current run rate.</div>
+      </div>
+      <div class="notif-item warn">
+        <div style="font-weight: 600; color: #fff;">Model Inefficiency</div>
+        <div style="color: var(--muted); margin-top: 2px;">High GPT-4 usage detected on simple text parsing tasks.</div>
+      </div>
+      <div class="notif-item">
+        <div style="font-weight: 600; color: #fff;">Optimization Applied</div>
+        <div style="color: var(--green); margin-top: 2px;">Successfully shifted 30% traffic to Gemini 1.5 Flash.</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
